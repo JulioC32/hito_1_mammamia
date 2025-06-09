@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   border: 0;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.3;
@@ -123,9 +124,6 @@ button:hover {
   display: flex;
   width: 100%;
   gap: 16px;
-  
-
-
 
 }
 
@@ -138,6 +136,7 @@ button:hover {
   color: #fff;
 }
 nav {
+   display: flex;
   font-size: 1.4vw;
   text-align: center;
   & .nav-link {
@@ -165,4 +164,12 @@ li {
 }
 footer{
   margin-top: 0;
+  width: 100%;
+}
+nav.navbar {
+  width: 100%;
+  height: 9vh;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
 }

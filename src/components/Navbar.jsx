@@ -5,7 +5,7 @@ const Navbar = () => {
     return (
       <nav className="navbar bg-dark px-4">
         <div className="d-flex align-items-center w-100 justify-content-between">
-          <div className="d-flex align-items-center gap-3">
+          <div className="d-flex align-items-center gap-4">
             <span className="text-white fw-bold fs-5">🍕 Pizzería Mamma Mia!</span>
   
             <button className="btn btn-outline-light">Home</button>
