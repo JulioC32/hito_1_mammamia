@@ -258,3 +258,39 @@ nav.navbar {
 .btn-pay:hover {
   background-color: #e65c00;
 }
+.pizza-detail {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff3e6;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.pizza-img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.pizza-desc {
+  margin: 1rem 0;
+}
+
+.pizza-price {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.add-to-cart-btn {
+  margin-top: 1rem;
+  background-color: #ff6347;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: not-allowed;
+}
