@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { pizzaCart as initialCart } from './pizzas';
+import { pizzas as initialCart } from '../components/pizzas';
 import '../index.css';
 
 const Cart = () => {
@@ -27,6 +27,7 @@ const Cart = () => {
 
   const handlePay = () => {
     alert(`Gracias por su compra. Total a pagar: $${total.toLocaleString()}`);
+    setCart([]); // Limpia el carrito al pagar
   };
 
   if (cart.length === 0) {

@@ -1,0 +1,131 @@
+
+.notfound-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(270deg, #ff416c, #ff4b2b, #ff416c);
+  background-size: 600% 600%;
+  animation: gradientAnime 12s ease infinite;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+@keyframes gradientAnime {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.anime-text {
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: 10px;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 20px #ff416c,
+    0 0 30px #ff416c,
+    0 0 40px #ff416c,
+    0 0 70px #ff416c;
+  animation: flickerAnime 3s infinite alternate;
+  margin: 0;
+}
+
+@keyframes flickerAnime {
+  0%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px #ff416c,
+      0 0 30px #ff416c,
+      0 0 40px #ff416c,
+      0 0 70px #ff416c;
+  }
+  50% {
+    opacity: 0.7;
+    text-shadow: none;
+  }
+}
+
+.anime-subtext {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1rem 0 2rem;
+  animation: fadeInUp 2s ease forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-home {
+  display: inline-block;
+  padding: 15px 40px;
+  background: #ff416c;
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.25rem;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow:
+    0 0 10px #ff416c,
+    0 0 20px #ff4b2b;
+  transition: all 0.3s ease;
+  user-select: none;
+  filter: drop-shadow(0 0 5px #ff4b2b);
+}
+
+.btn-home:hover {
+  filter: drop-shadow(0 0 20px #ff4b2b);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.notfound-img {
+  width: 320px;
+  margin-top: 3rem;
+  filter: drop-shadow(0 0 15px #ff416c);
+  animation: floatAnime 4s ease-in-out infinite;
+  border-radius: 16px;
+  box-shadow: 0 0 30px #ff416c;
+}
+
+@keyframes floatAnime {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.anime-glow {
+  animation: glowPulse 3s infinite alternate;
+}
+
+@keyframes glowPulse {
+  0% {
+    filter: drop-shadow(0 0 10px #ff4b2b);
+  }
+  100% {
+    filter: drop-shadow(0 0 30px #ff416c);
+  }
+}
+
