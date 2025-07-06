@@ -1,28 +1,18 @@
-import { useEffect, useState } from "react";
-import "../index.css";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { usePizzaContext } from '../context/PizzaContext';
+import '../index.css';
 
 const Pizza = () => {
-  const [pizza, setPizza] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchPizza = async () => {
-      try {
-        const res = await fetch("http://localhost:5000/api/pizzas/p001");
-        if (!res.ok) throw new Error("Error al obtener la pizza");
-        const data = await res.json();
-        setPizza(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPizza();
-  }, []);
+  const { id } = useParams();
+  const { pizzas, loading, error } = usePizzaContext();
 
   if (loading) return <p>Cargando pizza...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  // Buscar la pizza por id en el array de pizzas
+  const pizza = pizzas.find((p) => p.id === id);
+
   if (!pizza) return <p>No se encontró la pizza.</p>;
 
   return (
@@ -39,7 +29,7 @@ const Pizza = () => {
       </ul>
 
       <p>
-        <strong>Precio:</strong> ${pizza.price}
+        <strong>Precio:</strong> ${pizza.price.toLocaleString()}
       </p>
 
       <button disabled>Añadir al carrito</button>
@@ -48,4 +38,5 @@ const Pizza = () => {
 };
 
 export default Pizza;
+
 

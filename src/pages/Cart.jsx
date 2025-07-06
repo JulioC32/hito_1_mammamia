@@ -1,33 +1,13 @@
-import React, { useState } from 'react';
-import { pizzas as initialCart } from '../components/pizzas';
+import React from 'react';
+import { usePizzaContext } from '../context/PizzaContext';
 import '../index.css';
 
 const Cart = () => {
-  const [cart, setCart] = useState(initialCart);
-
-  const increaseCount = (id) => {
-    setCart((prev) =>
-      prev.map((pizza) =>
-        pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
-      )
-    );
-  };
-
-  const decreaseCount = (id) => {
-    setCart((prev) =>
-      prev
-        .map((pizza) =>
-          pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
-        )
-        .filter((pizza) => pizza.count > 0)
-    );
-  };
-
-  const total = cart.reduce((acc, pizza) => acc + pizza.price * pizza.count, 0);
+  const { cart, increaseCount, decreaseCount, total, clearCart } = usePizzaContext();
 
   const handlePay = () => {
     alert(`Gracias por su compra. Total a pagar: $${total.toLocaleString()}`);
-    setCart([]); // Limpia el carrito al pagar
+    clearCart();
   };
 
   if (cart.length === 0) {
@@ -36,7 +16,8 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-      <h2>🛒 Detalles del pedido:</h2>
+      <h2>🛒 Tu Carrito</h2>
+
       <ul className="cart-list">
         {cart.map(({ id, img, name, price, count }) => (
           <li key={id} className="cart-item">
@@ -46,26 +27,20 @@ const Cart = () => {
               <p>Precio unitario: ${price.toLocaleString()}</p>
               <p>Cantidad: {count}</p>
               <div className="btn-count">
-                <button className="btn-minus" onClick={() => decreaseCount(id)}>
-                  -
-                </button>
-                <button className="btn-plus" onClick={() => increaseCount(id)}>
-                  +
-                </button>
+                <button className="btn-minus" onClick={() => decreaseCount(id)}>-</button>
+                <button className="btn-plus" onClick={() => increaseCount(id)}>+</button>
               </div>
-              <p className="fw-bold">
-                Subtotal: ${(price * count).toLocaleString()}
-              </p>
+              <p className="fw-bold">Subtotal: ${(price * count).toLocaleString()}</p>
             </div>
           </li>
         ))}
       </ul>
-      <h2>Total: ${total.toLocaleString()}</h2>
-      <button className="btn-pay" onClick={handlePay}>
-        Pagar
-      </button>
+
+      <h3>Total: ${total.toLocaleString()}</h3>
+      <button className="btn-pay" onClick={handlePay}>Pagar</button>
     </div>
   );
 };
 
 export default Cart;
+

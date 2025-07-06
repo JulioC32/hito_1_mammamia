@@ -1,9 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { usePizzaContext } from '../context/PizzaContext';
 
 const Navbar = () => {
-  const total = 25000;
-  const token = false;
+  const { cart } = usePizzaContext(); // 👈 obtenemos el carrito del contexto
   const navigate = useNavigate();
+  const token = false;
+
+  // Calculamos total en precio y cantidad con la propiedad correcta 'count'
+  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.count, 0);
+  const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
 
   const goToCart = () => {
     navigate('/cart');
@@ -42,7 +47,7 @@ const Navbar = () => {
 
         <div>
           <button className="btn btn-outline-light" onClick={goToCart}>
-            🛒 Total: ${total.toLocaleString()}
+            🛒 {totalItems} {totalItems === 1 ? 'producto' : 'productos'} - ${totalPrice.toLocaleString()}
           </button>
         </div>
       </div>
@@ -52,4 +57,4 @@ const Navbar = () => {
 
 export default Navbar;
 
-  
+
