@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'; // 👈 Importamos Link
 import { usePizzaContext } from '../context/PizzaContext';
 import '../index.css';
 
@@ -31,7 +31,9 @@ const CardPizza = ({ pizza }) => {
         <p className="price fw-bold">Precio: ${pizza.price.toLocaleString()}</p>
 
         <div className="btn-section">
-          <button className="ver-mas-btn">Ver más 👀</button>
+          <Link to={`/pizza/${pizza.id}`}>
+            <button className="ver-mas-btn">Ver más 👀</button>
+          </Link>
           <button className="anadir-btn" onClick={() => addToCart(pizza)}>
             Añadir 🛒
           </button>

@@ -1,12 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { usePizzaContext } from '../context/PizzaContext';
+import { useUserContext } from '../context/UserContext'; 
 
 const Navbar = () => {
-  const { cart } = usePizzaContext(); // 👈 obtenemos el carrito del contexto
+  const { cart } = usePizzaContext();
+  const { token, logout } = useUserContext(); // ✅ Obtenemos token y logout
   const navigate = useNavigate();
-  const token = false;
 
-  // Calculamos total en precio y cantidad con la propiedad correcta 'count'
+  // Calculamos total en precio y cantidad
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.count, 0);
   const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
 
@@ -20,27 +21,17 @@ const Navbar = () => {
         <div className="d-flex align-items-center gap-4">
           <span className="text-white fw-bold fs-5">🍕 Pizzería Mamma Mia!</span>
 
-          <Link to="/" className="btn btn-outline-light">
-            Home
-          </Link>
+          <Link to="/" className="btn btn-outline-light">Home</Link>
 
           {token ? (
             <>
-              <Link to="/profile" className="btn btn-outline-light">
-                🔓 Profile
-              </Link>
-              <button className="btn btn-outline-light" onClick={() => alert('Cerrar sesión')}>
-                🔒 Logout
-              </button>
+              <Link to="/profile" className="btn btn-outline-light">🔓 Profile</Link>
+              <button className="btn btn-outline-light" onClick={logout}>🔒 Logout</button>
             </>
           ) : (
             <>
-              <Link to="/login" className="btn btn-outline-light">
-                🔐 Login
-              </Link>
-              <Link to="/register" className="btn btn-outline-light">
-                📝 Register
-              </Link>
+              <Link to="/login" className="btn btn-outline-light">🔐 Login</Link>
+              <Link to="/register" className="btn btn-outline-light">📝 Register</Link>
             </>
           )}
         </div>
@@ -56,5 +47,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
 

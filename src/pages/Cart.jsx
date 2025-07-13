@@ -1,9 +1,11 @@
 import React from 'react';
 import { usePizzaContext } from '../context/PizzaContext';
+import { useUserContext } from '../context/UserContext';
 import '../index.css';
 
 const Cart = () => {
   const { cart, increaseCount, decreaseCount, total, clearCart } = usePizzaContext();
+  const { token } = useUserContext(); // ✅ Obtener el token
 
   const handlePay = () => {
     alert(`Gracias por su compra. Total a pagar: $${total.toLocaleString()}`);
@@ -37,10 +39,16 @@ const Cart = () => {
       </ul>
 
       <h3>Total: ${total.toLocaleString()}</h3>
-      <button className="btn-pay" onClick={handlePay}>Pagar</button>
+
+      <button className="btn-pay" onClick={handlePay} disabled={!token}>
+        Pagar
+      </button>
+
+      {!token && (
+        <p className="text-danger mt-2">⚠️ Debes iniciar sesión para realizar el pago.</p>
+      )}
     </div>
   );
 };
 
 export default Cart;
-
