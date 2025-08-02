@@ -1,34 +1,27 @@
-// src/components/Profile.jsx
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import './Profile.css'; // opcional para estilos
+import { useEffect } from 'react';
+import { useUserContext } from '../context/UserContext';
+import './Profile.css';
 
 const Profile = () => {
+  const { email, token, logout } = useUserContext();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
 
   useEffect(() => {
-    // Simulamos obtener el email del "usuario logueado"
-    const storedEmail = localStorage.getItem('userEmail');
-    if (storedEmail) {
-      setEmail(storedEmail);
-    } else {
-      // Si no hay usuario, redirigir al login
+    if (!token) {
       navigate('/login');
     }
-  }, [navigate]);
+  }, [token, navigate]);
 
   const handleLogout = () => {
-    // Elimina datos del usuario y redirige
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('tokenLogin'); // si usas token
+    logout();
     navigate('/login');
   };
 
   return (
     <div className="profile-container">
       <h2>👤 Perfil de Usuario</h2>
-      <p>Correo electrónico: <strong>{email}</strong></p>
+      <p>Correo electrónico: <strong>{email || 'Cargando...'}</strong></p>
       <button className="btn-logout" onClick={handleLogout}>
         Cerrar sesión
       </button>
@@ -37,3 +30,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+

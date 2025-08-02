@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { useUserContext } from '../context/UserContext';
 import '../components/Login.css';
 
-
 const Login = () => {
+  const { login } = useUserContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState({ type: '', text: '' });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage({ type: '', text: '' });
 
@@ -21,12 +22,14 @@ const Login = () => {
       return;
     }
 
-    // Aquí podrías agregar la validación contra una API si lo deseas
-    setMessage({ type: 'success', text: '¡Inicio de sesión exitoso!' });
-
-    // Limpiar campos
-    setEmail('');
-    setPassword('');
+    try {
+      await login({ email, password });
+      setMessage({ type: 'success', text: '¡Inicio de sesión exitoso!' });
+      setEmail('');
+      setPassword('');
+    } catch (error) {
+      setMessage({ type: 'error', text: error.message || 'Error en inicio de sesión' });
+    }
   };
 
   return (

@@ -4,7 +4,7 @@ import { useUserContext } from '../context/UserContext';
 
 const Navbar = () => {
   const { cart } = usePizzaContext();
-  const { token, logout } = useUserContext(); // ✅ Obtenemos token y logout
+  const { token, logout } = useUserContext();
   const navigate = useNavigate();
 
   // Calculamos total en precio y cantidad
@@ -13,6 +13,11 @@ const Navbar = () => {
 
   const goToCart = () => {
     navigate('/cart');
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
 
   return (
@@ -26,7 +31,7 @@ const Navbar = () => {
           {token ? (
             <>
               <Link to="/profile" className="btn btn-outline-light">🔓 Profile</Link>
-              <button className="btn btn-outline-light" onClick={logout}>🔒 Logout</button>
+              <button className="btn btn-outline-light" onClick={handleLogout}>🔒 Logout</button>
             </>
           ) : (
             <>
@@ -47,4 +52,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

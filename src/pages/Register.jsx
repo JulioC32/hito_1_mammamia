@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { useUserContext } from '../context/UserContext';
 import '../components/Register.css';
 
 const Register = () => {
+  const { register } = useUserContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState({ type: '', text: '' });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage({ type: '', text: '' });
 
@@ -26,10 +28,15 @@ const Register = () => {
       return;
     }
 
-    setMessage({ type: 'success', text: '¡Registro exitoso!' });
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+    try {
+      await register({ email, password });
+      setMessage({ type: 'success', text: '¡Registro exitoso!' });
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+    } catch (error) {
+      setMessage({ type: 'error', text: error.message || 'Error en registro' });
+    }
   };
 
   return (
@@ -72,3 +79,4 @@ const Register = () => {
 };
 
 export default Register;
+
